@@ -30,13 +30,13 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Crear release en GitHub y subir JAR
-  uses: softprops/action-gh-release@v1
-  with:
-    tag_name: v1.0.${{ github.run_number }}
-    name: "Release v1.0.${{ github.run_number }}"
-    body: "Build automático generado por CI"
-    files: target/*.jar
-  env:
-    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  - name: Crear release en GitHub y subir JAR
+    uses: softprops/action-gh-release@v1
+    with:
+      tag_name: v1.0.${{ github.run_number }}
+      name: "Release v1.0.${{ github.run_number }}"
+      body: "Build automático generado por CI"
+      files: target/*.jar
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
