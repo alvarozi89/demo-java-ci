@@ -3,8 +3,6 @@ name: Java CI con Maven
 on:
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
 
 jobs:
   build:
@@ -22,3 +20,19 @@ jobs:
 
     - name: Compilar y testear con Maven
       run: mvn -B clean verify
+
+    - name: Crear release en GitHub
+      uses: softprops/action-gh-release@v1
+      with:
+        tag_name: v1.0.${{ github.run_number }}
+        name: "Release v1.0.${{ github.run_number }}"
+        body: "Build automático generado por CI"
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Subir JAR al release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: target/*.jar
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
